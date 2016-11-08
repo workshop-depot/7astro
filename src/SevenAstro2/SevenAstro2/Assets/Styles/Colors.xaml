@@ -1,0 +1,94 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="TURQUOISE">#1abc9c</Color>
+    <Color x:Key="EMERALD">#2ecc71</Color>
+    <Color x:Key="PETER_RIVER">#3498db</Color>
+    <Color x:Key="AMETHYST">#9b59b6</Color>
+    <Color x:Key="WET_ASPHALT">#34495e</Color>
+    <Color x:Key="GREEN_SEA">#16a085</Color>
+    <Color x:Key="NEPHRITIS">#27ae60</Color>
+    <Color x:Key="BELIZE_HOLE">#2980b9</Color>
+    <Color x:Key="WISTERIA">#8e44ad</Color>
+    <Color x:Key="MIDNIGHT_BLUE">#2c3e50</Color>
+    <Color x:Key="SUN_FLOWER">#f1c40f</Color>
+    <Color x:Key="CARROT">#e67e22</Color>
+    <Color x:Key="ALIZARIN">#e74c3c</Color>
+    <Color x:Key="CLOUDS">#ecf0f1</Color>
+    <Color x:Key="CONCRETE">#95a5a6</Color>
+    <Color x:Key="ORANGE">#f39c12</Color>
+    <Color x:Key="PUMPKIN">#d35400</Color>
+    <Color x:Key="POMEGRANATE">#c0392b</Color>
+    <Color x:Key="SILVER">#bdc3c7</Color>
+    <Color x:Key="ASBESTOS">#7f8c8d</Color>
+
+    <SolidColorBrush x:Key="BrushTURQUOISE" Color="{DynamicResource TURQUOISE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushEMERALD" Color="{DynamicResource EMERALD}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushPETER_RIVER" Color="{DynamicResource PETER_RIVER}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushAMETHYST" Color="{DynamicResource AMETHYST}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushWET_ASPHALT" Color="{DynamicResource WET_ASPHALT}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushGREEN_SEA" Color="{DynamicResource GREEN_SEA}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushNEPHRITIS" Color="{DynamicResource NEPHRITIS}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushBELIZE_HOLE" Color="{DynamicResource BELIZE_HOLE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushWISTERIA" Color="{DynamicResource WISTERIA}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushMIDNIGHT_BLUE" Color="{DynamicResource MIDNIGHT_BLUE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushSUN_FLOWER" Color="{DynamicResource SUN_FLOWER}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushCARROT" Color="{DynamicResource CARROT}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushALIZARIN" Color="{DynamicResource ALIZARIN}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushCLOUDS" Color="{DynamicResource CLOUDS}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushCONCRETE" Color="{DynamicResource CONCRETE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushORANGE" Color="{DynamicResource ORANGE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushPUMPKIN" Color="{DynamicResource PUMPKIN}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushPOMEGRANATE" Color="{DynamicResource POMEGRANATE}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushSILVER" Color="{DynamicResource SILVER}" Opacity="1" />
+    <SolidColorBrush x:Key="BrushASBESTOS" Color="{DynamicResource ASBESTOS}" Opacity="1" />
+
+    <Color x:Key="BLACK">#000000</Color>
+    <SolidColorBrush x:Key="BrushBLACK" Color="{DynamicResource BLACK}" Opacity="1" />
+
+    <Color x:Key="WHITE">#ffffff</Color>
+    <SolidColorBrush x:Key="BrushWHITE" Color="{DynamicResource WHITE}" Opacity="1" />
+
+    <!-- Mail Soft -->
+    <Color x:Key="c_ececec">#ececec</Color>
+    <SolidColorBrush x:Key="brush_c_ececec" Color="{DynamicResource c_ececec}" Opacity="1" />
+
+    <Color x:Key="c_e6edf7">#e6edf7</Color>
+    <SolidColorBrush x:Key="brush_c_e6edf7" Color="{DynamicResource c_e6edf7}" Opacity="1" />
+
+    <Color x:Key="c_a5a5a5">#a5a5a5</Color>
+    <SolidColorBrush x:Key="brush_c_a5a5a5" Color="{DynamicResource c_a5a5a5}" Opacity="1" />
+
+    <Color x:Key="c_95c3d7">#95c3d7</Color>
+    <SolidColorBrush x:Key="brush_c_95c3d7" Color="{DynamicResource c_95c3d7}" Opacity="1" />
+
+    <Color x:Key="c_d0e4ed">#d0e4ed</Color>
+    <SolidColorBrush x:Key="brush_c_d0e4ed" Color="{DynamicResource c_d0e4ed}" Opacity="1" />
+
+    <!-- swade -->
+    <Color x:Key="c_4a6e90">#4a6e90</Color>
+    <SolidColorBrush x:Key="brush_c_4a6e90" Color="{DynamicResource c_4a6e90}" Opacity="1" />
+
+    <Color x:Key="c_7094b6">#7094b6</Color>
+    <SolidColorBrush x:Key="brush_c_7094b6" Color="{DynamicResource c_7094b6}" Opacity="1" />
+
+    <Color x:Key="c_b88548">#b88548</Color>
+    <SolidColorBrush x:Key="brush_c_b88548" Color="{DynamicResource c_b88548}" Opacity="1" />
+
+    <Color x:Key="c_980a00">#980a00</Color>
+    <SolidColorBrush x:Key="brush_c_980a00" Color="{DynamicResource c_980a00}" Opacity="1" />
+
+    <Color x:Key="c_78904a">#78904a</Color>
+    <SolidColorBrush x:Key="brush_c_78904a" Color="{DynamicResource c_78904a}" Opacity="1" />
+    
+    <!-- misc -->
+    <Color x:Key="c_FFFF99">#FFFF99</Color>
+    <SolidColorBrush x:Key="brush_c_FFFF99" Color="{DynamicResource c_FFFF99}" Opacity="1" />
+
+    <Color x:Key="c_D6E4E1">#D6E4E1</Color>
+    <SolidColorBrush x:Key="brush_c_D6E4E1" Color="{DynamicResource c_D6E4E1}" Opacity="1" />
+
+    <Color x:Key="c_3EB3C2">#3EB3C2</Color>
+    <SolidColorBrush x:Key="brush_c_3EB3C2" Color="{DynamicResource c_3EB3C2}" Opacity="1" />
+
+</ResourceDictionary>

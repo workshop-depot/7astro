@@ -1,0 +1,88 @@
+﻿<Window x:Class="SevenAstro2.Views.BirthDataView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        xmlns:local="clr-namespace:SevenAstro2"
+        Topmost="True"
+        Title="" Width="174" SizeToContent="Height"
+        WindowStyle="ToolWindow" ResizeMode="NoResize"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <local:GenderToStringConverter x:Key="gtosConverter" />
+        <!--<local:NodeTypeToStringConverter x:Key="nodtosConverter" />-->
+        <local:SignToStringConverter x:Key="stosConverter" />
+        <!--<local:PlanetToStringConverter x:Key="ptosConverter" />-->
+        <local:DegreeToStringConverter x:Key="dtosConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.BirthData}" HorizontalAlignment="Center" Margin="5">
+            <Label FontSize="18" FontWeight="Bold">Edit Data</Label>
+            <Separator />
+            <Label>Name:</Label>
+            <TextBox Text="{Binding Path=Name}" BorderBrush="Black" BorderThickness="0.5"></TextBox>
+            <Label>Gender:</Label>
+            <ComboBox ItemsSource="{Binding Path=Genders}" SelectedItem="{Binding Path=Gender, Converter={StaticResource gtosConverter}}" Background="White" BorderBrush="Black" BorderThickness="0.5">
+            </ComboBox>
+            <Label>Date: (dd/mm/yyyy)</Label>
+            <DatePicker Name="dateGregorian" SelectedDateFormat="Short" SelectedDate="{Binding Path=Date}" BorderBrush="Black" BorderThickness="0.5" />
+            <Label>Time: (00:00:00)</Label>
+            <TextBox BorderBrush="Black" BorderThickness="0.5">
+                <TextBox.Text>
+                    <Binding Path="Time" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label>Birth Place:</Label>
+            <TextBox Name="LocationTextBox" Text="{Binding Path=BirthPlace}" BorderBrush="Black" BorderThickness="0.5"></TextBox>
+            <ListBox Name="LocationSuggestionListBox" SelectionChanged="LocationSuggestionListBox_SelectionChanged" 
+                     Background="LightYellow" Visibility="Collapsed" />
+            <Label>Timezone: (+/-00:00:00)</Label>
+            <TextBox BorderBrush="Black" BorderThickness="0.5">
+                <TextBox.Text>
+                    <Binding Path="Timezone" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label>DST: (+/-00:00:00)</Label>
+            <TextBox BorderBrush="Black" BorderThickness="0.5">
+                <TextBox.Text>
+                    <Binding Path="DST" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label>Latitude: 00(N/S)00:00</Label>
+            <TextBox BorderBrush="Black" BorderThickness="0.5">
+                <TextBox.Text>
+                    <Binding Path="Lat" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Label>Longitude: 000(E/W)00:00</Label>
+            <TextBox BorderBrush="Black" BorderThickness="0.5">
+                <TextBox.Text>
+                    <Binding Path="Lon" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="145" Name="btnCalculate" BorderBrush="Transparent" BorderThickness="0" Margin="0,5,0,0" Click="btnCalculate_Click">Calculate</Button>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="145" Name="btnRememberLocation" BorderBrush="Transparent" BorderThickness="0" Margin="0,5,0,0" Click="btnRememberLocation_Click">Remember Location</Button>
+        </StackPanel>
+    </Grid>
+</Window>

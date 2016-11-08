@@ -1,0 +1,55 @@
+﻿<Window x:Class="SevenAstro2.Views.ConvertDateView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        Topmost="True"
+        Title="" SizeToContent="WidthAndHeight"
+        WindowStyle="ToolWindow" ResizeMode="NoResize" Closing="Window_Closing">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" Margin="5">
+            <Label FontSize="18" FontWeight="Bold">Convert Date</Label>
+            <Separator />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Label>Persian Date: (dd/mm/yyyy)</Label>
+                <TextBox Name="tbPersian" BorderBrush="Black" BorderThickness="0.5" Height="24" Grid.Row="1">
+                    <TextBox.Text>
+                        <Binding Path="PersianDate" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Button Command="{Binding PersToGregCommand}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Grid.Column="1">
+                    <Image Source="..\Assets\Images\forward.png" Height="30" Width="30" />
+                </Button>
+                <Button Command="{Binding GregToPersCommand}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Grid.Column="1" Grid.Row="1">
+                    <Image Source="..\Assets\Images\backward.png" Height="30" Width="30" />
+                </Button>
+                <Label Grid.Column="2">Gregorian Date:  (dd/mm/yyyy)</Label>
+                <TextBox Name="tbGreg" BorderBrush="Black" BorderThickness="0.5" Height="24" Grid.Row="1" Grid.Column="2">
+                    <TextBox.Text>
+                        <Binding Path="GregDate" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+                    <TextBlock Text="{Binding Message}" Foreground="Red" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

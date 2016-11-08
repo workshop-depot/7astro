@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="SevenAstro2.Views.TransitPartial"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             x:ClassModifier="internal"
+             xmlns:local="clr-namespace:SevenAstro2"
+             xmlns:views="clr-namespace:SevenAstro2.Views"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <!--<local:GenderToStringConverter x:Key="gtosConverter" />-->
+        <!--<local:NodeTypeToStringConverter x:Key="nodtosConverter" />-->
+        <local:SignToStringConverter x:Key="stosConverter" />
+        <local:PlanetToStringConverter x:Key="ptosConverter" />
+        <local:DegreeToStringConverter x:Key="dtosConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*" MinWidth="200"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <StackPanel Name="spTransientData">
+                    <Label FontSize="20" FontWeight="Bold">Time</Label>
+                    <Label>Date: (mm/dd/yyyy)</Label>
+                    <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding Path=TransientDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label>Time: (hh:mm:ss)</Label>
+                    <TextBox>
+                        <TextBox.Text>
+                            <Binding Path="TransientTime" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                    <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,5,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnSetTransientTime" Click="btnSetTransientTime_Click">Set Time</Button>
+                </StackPanel>
+                <Separator></Separator>
+                <Label FontSize="20" FontWeight="Bold">Animate</Label>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,5,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnRealTime" Click="btnRealTime_Click">Real Time</Button>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,0,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnMinutely" Click="btnMinutely_Click">Minutely</Button>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,0,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnHourly" Click="btnHourly_Click">Hourly</Button>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,0,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnDaily" Click="btnDaily_Click">Daily</Button>
+                <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Padding="5" Margin="0,0,0,5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="btnWeekly" Click="btnWeekly_Click">Weekly</Button>
+                <DockPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Name="btnBackward1" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="btnBackward1_Click">
+                            <Image Source="..\Assets\Images\backward1.png" Height="30" Width="30" />
+                        </Button>
+                        <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Name="btnBackward" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="btnBackward_Click">
+                            <Image Source="..\Assets\Images\backward.png" Height="30" Width="30" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                        <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Name="btnForward" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="btnForward_Click">
+                            <Image Source="..\Assets\Images\forward.png" Height="30" Width="30" />
+                        </Button>
+                        <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Name="btnForward1" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="btnForward1_Click">
+                            <Image Source="..\Assets\Images\forward1.png" Height="30" Width="30" />
+                        </Button>
+                    </StackPanel>
+                    <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Name="btnStartStop" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Click="btnStartStop_Click">
+                        <Image Name="imgBtnStartStop" Source="..\Assets\Images\start.png" Height="30" Width="30" />
+                    </Button>
+                </DockPanel>
+            </StackPanel>
+        </Grid>
+        <views:TransientCirclePartial Grid.Column="1" BirthChart="{Binding BC_D1}" TransientChart="{Binding TransientChart.Chart}" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <views:ChartPartial ShowDegree="False" Chart="{Binding TransientD9}" />
+            <TabControl Grid.Row="1" Margin="0,3,0,0">
+                <TabItem Header="Planets">
+                    <views:PlanetDataPartial DataContext="{Binding TransientPlanetData}" />
+                </TabItem>
+                <TabItem Header="Match Point">
+                    <Grid>
+                        <StackPanel>
+                            <Label>Planet:</Label>
+                            <ComboBox ItemsSource="{Binding Path=MatchPlanets}" SelectedItem="{Binding Path=MatchPlanet, Converter={StaticResource ptosConverter}}" />
+                            <Label>Sign:</Label>
+                            <ComboBox ItemsSource="{Binding Path=MatchSigns}" SelectedItem="{Binding Path=MatchSign, Converter={StaticResource stosConverter}}" />
+                            <Label>Degree: (00:00:00)</Label>
+                            <TextBox>
+                                <TextBox.Text>
+                                    <Binding Path="MatchDegreeStr" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ExceptionValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Padding="5" Margin="0,5,0,5" Name="btnMatchPoint" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Stretch" Click="btnMatchPoint_Click">Find</Button>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="PVB &amp; DVB">
+                    <views:PanchaDwaadasaPartial DataContext="{Binding TransientPanchaDwaadasa}" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</UserControl>

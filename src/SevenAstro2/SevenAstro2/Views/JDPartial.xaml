@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="SevenAstro2.Views.JDPartial"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             x:ClassModifier="internal"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <Label>Date: (dd/mm/yyyy)</Label>
+            <DatePicker SelectedDateFormat="Short" SelectedDate="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JDData.Date}" />
+            <Label>Time:</Label>
+            <TextBox>
+                <TextBox.Text>
+                    <Binding Path="DataContext.JDData.Time" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.RelativeSource>
+                            <RelativeSource Mode="FindAncestor" AncestorType="UserControl" />
+                        </Binding.RelativeSource>
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Width="145" Name="btnCalculateJD" BorderBrush="Transparent" BorderThickness="0" Margin="0,5,0,0" Click="btnCalculateJD_Click">Calculate</Button>
+            <Separator></Separator>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock>PC Start JD:</TextBlock>
+                <TextBlock Grid.Column="1" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JDPCStart}"></TextBlock>
+                <TextBlock Grid.Row="1">Event JD:</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JDEvent}"></TextBlock>
+                <Separator Grid.Row="2" Grid.ColumnSpan="2"></Separator>
+                <TextBlock Grid.Row="3">Days Passed from PC Start:</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JDDiff}"></TextBlock>
+                <TextBlock Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Top">Days Passed from PC Start (Converted to Arc):</TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JD}" VerticalAlignment="Top"></TextBlock>
+            </Grid>
+            <!--<TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.JD}"></TextBlock>-->
+        </StackPanel>
+    </Grid>
+</UserControl>

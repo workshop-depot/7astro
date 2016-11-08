@@ -1,0 +1,21 @@
+﻿<Window x:Class="SevenAstro2.SplashWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        Title="7astro" Height="300" Width="300" 
+        WindowStyle="None" WindowStartupLocation="CenterScreen" BorderBrush="Transparent" BorderThickness="0" ResizeMode="NoResize" Topmost="True" 
+        Background="Transparent" AllowsTransparency="True">
+
+    <Window.Resources>
+        <ResourceDictionary Source="Assets/Styles/Colors.xaml" />
+    </Window.Resources>
+
+    <Border Background="{StaticResource brush_c_3EB3C2}" CornerRadius="7" Padding="9">
+        <Grid>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Source="Assets/Images/soul.png" Width="128" Height="128" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                <TextBlock FontWeight="Bold" FontSize="14" HorizontalAlignment="Center">7astro</TextBlock>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

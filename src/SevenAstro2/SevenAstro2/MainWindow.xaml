@@ -1,0 +1,83 @@
+﻿<Window xmlns:SevenAstro2="clr-namespace:SevenAstro2"  x:Class="SevenAstro2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        xmlns:models="clr-namespace:SevenAstro2.Models"
+        xmlns:views="clr-namespace:SevenAstro2.Views"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
+        Icon="Assets/Images/soul.ico"
+        Title="7astro" MinHeight="500" MinWidth="800" WindowState="Maximized" Closed="Window_Closed" Closing="Window_Closing">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="Open" CanExecute="CommandCanExecute" Executed="OpenCommandExecuted" />
+        <CommandBinding Command="Save" CanExecute="CommandCanExecute" Executed="SaveCommandExecuted" />
+        <CommandBinding Command="New" CanExecute="CommandCanExecute" Executed="NewCommandExecuted" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Command="Open" Key="O" Modifiers="Control" />
+        <KeyBinding Command="Save" Key="S" Modifiers="Control" />
+        <KeyBinding Command="New" Key="N" Modifiers="Control" />
+    </Window.InputBindings>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Margin="0,0,0,3">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" ToolTip="(Ctrl+N)" CommandParameter="new" Click="MenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Images/new.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Open" ToolTip="(Ctrl+O)" CommandParameter="open" Click="MenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Images/open.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="_Save" ToolTip="(Ctrl+S)" CommandParameter="save" Click="MenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Images/save.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="_Print" CommandParameter="print" Click="MenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="Assets/Images/printer.png" Height="16" Width="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="E_xit" CommandParameter="exit" Click="MenuItem_Click" />
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Edit _Data" CommandParameter="edit_event" Click="MenuItem_Click" />
+                <MenuItem Header="_Time Stepper" CommandParameter="time_stepper" Click="MenuItem_Click" />
+                <!--<MenuItem Header="_Convert Date" CommandParameter="convert_date" Click="MenuItem_Click" />-->
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Convert Date" CommandParameter="convert_date" Click="MenuItem_Click" />
+                <!--<MenuItem Header="_Locations" CommandParameter="locations" Click="MenuItem_Click" />-->
+            </MenuItem>
+            <!--<MenuItem Header="Settings" CommandParameter="settings" Click="MenuItem_Click" />-->
+            <!--<MenuItem Header="Help" CommandParameter="help" Click="MenuItem_Click" />-->
+        </Menu>
+        <avalonDock:DockingManager Grid.Row="1" x:Name="dockingManager">
+            <avalonDock:LayoutRoot>
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+                    <avalonDock:LayoutDocumentPaneGroup>
+                        <avalonDock:LayoutDocumentPane x:Name="Documents">
+                            <!--<avalonDock:LayoutDocument Title="Kaveh 1" Closing="LayoutDocument_Closing">
+                                <TextBlock Name="output">Text</TextBlock>
+                            </avalonDock:LayoutDocument>-->
+                            <!--<avalonDock:LayoutDocument Title="Kaveh 2" Closing="LayoutDocument_Closing">
+                                <TextBlock>Text</TextBlock>
+                            </avalonDock:LayoutDocument>-->
+                        </avalonDock:LayoutDocumentPane>
+                    </avalonDock:LayoutDocumentPaneGroup>
+                </avalonDock:LayoutPanel>
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
+    </Grid>
+</Window>

@@ -1,0 +1,183 @@
+﻿<Window x:Class="SevenAstro2.Views.PrintView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:ClassModifier="internal"
+        Title="7astro" 
+        xmlns:local="clr-namespace:SevenAstro2"
+        xmlns:views="clr-namespace:SevenAstro2.Views"
+        WindowStartupLocation="CenterScreen" Height="640" Width="670" Closing="Window_Closing" Icon="/7astro;component/Assets/Images/soul.ico">
+
+    <Window.Resources>
+        <!--<local:GenderToStringConverter x:Key="gtosConverter" />-->
+        <!--<local:NodeTypeToStringConverter x:Key="nodtosConverter" />-->
+        <local:SignToStringConverter x:Key="stosConverter" />
+        <!--<local:PlanetToStringConverter x:Key="ptosConverter" />-->
+        <local:DegreeToStringConverter x:Key="dtosConverter" />
+        <!--<ResourceDictionary x:Key="colors" Source="../Assets/Styles/Colors.xaml" />-->
+    </Window.Resources>
+
+    <Border BorderBrush="Transparent">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" MinWidth="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="34"></RowDefinition>
+                <RowDefinition Height="1*" MinHeight="100"></RowDefinition>
+                <RowDefinition Height="0"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="btnPrint" ToolTip="Print" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" BorderBrush="Transparent" BorderThickness="0" Background="Transparent" Click="btnPrint_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="..\Assets\Images\printer.png" Height="34" Width="34"></Image>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" Padding="10" BorderBrush="Transparent">
+                <Grid Name="printArea" Height="800" Width="600" Margin="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="16*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="20*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid DataContext="{Binding BirthData}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" Margin="0,0,10,0" FontWeight="Bold" />
+                            <TextBlock>(</TextBlock>
+                            <TextBlock Text="{Binding Path=VDateTime, StringFormat={}{0:yyyy MMM dd HH:mm:ss}}" />
+                            <TextBlock>)</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBlock>@</TextBlock>
+                            <TextBlock Text="{Binding BirthPlace}" />
+                        </StackPanel>
+                        <Grid Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="9">zone:</TextBlock>
+                                <TextBlock FontSize="9" Text="{Binding VTimezone}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock FontSize="9">dst:</TextBlock>
+                                <TextBlock FontSize="9" Text="{Binding VDST}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <TextBlock FontSize="9">(</TextBlock>
+                                <TextBlock FontSize="9">lon:</TextBlock>
+                                <TextBlock FontSize="9" Text="{Binding Longitude}" />
+                                <TextBlock FontSize="9">,</TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                                <TextBlock FontSize="9">lat:</TextBlock>
+                                <TextBlock FontSize="9" Text="{Binding Latitude}" />
+                                <TextBlock FontSize="9">)</TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                    <Grid Margin="2" Grid.Column="0" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <views:ChartPartial Chart="{Binding BC_D1}" ShowDegree="True" ChartBackground="Transparent" />
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <views:ChartPartial Chart="{Binding BC_D9}" ShowDegree="False" ChartBackground="Transparent" Margin="0,8,4,4" />
+                            <!--<DataGrid Name="dgPlanetData" Margin="4,8,0,4" Grid.Column="1" RowBackground="White" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"
+                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                                        ItemsSource="{Binding BCPancha}" FontSize="10"
+                                        AutoGenerateColumns="False" HeadersVisibility="Column">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="" IsReadOnly="True" Binding="{Binding Planet}" MinWidth="24" />
+                                    <DataGridTextColumn Header="Pancha Vargeeya Bala" IsReadOnly="True" Binding="{Binding Pancha}" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>-->
+                            <!--<Canvas TextElement.FontSize="8.3" Margin="4,8,0,4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <views:PanchaDwaadasaPartial DataContext="{Binding BCPanchaDwaadasa}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" />
+                            </Canvas>-->
+                            <Grid Grid.Column="1" TextElement.FontSize="8.45" Margin="4,8,0,4">
+                                <views:PanchaDwaadasaPartial DataContext="{Binding BCPanchaDwaadasa}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" />
+                            </Grid>
+                        </Grid>
+                        <DataGrid Background="White" RowBackground="White" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"
+                                      Grid.Row="2" Margin="0,4,0,0"
+                                      HorizontalAlignment="Stretch" FontSize="9"
+                                      ItemsSource="{Binding BCPlanetDataList}" 
+                                      AutoGenerateColumns="False" HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="" IsReadOnly="True" Binding="{Binding Planet}" />
+                                <DataGridTextColumn Header="Sign" IsReadOnly="True" Binding="{Binding Sign, Converter={StaticResource stosConverter}}" />
+                                <DataGridTextColumn Header="Degree" IsReadOnly="True" Binding="{Binding Degree, Converter={StaticResource dtosConverter}}" />
+                                <DataGridTextColumn Header="Longitude" IsReadOnly="True" Binding="{Binding Longitude, Converter={StaticResource dtosConverter}}" />
+                                <DataGridTextColumn Header="Nakshatra" IsReadOnly="True" Binding="{Binding NakshatraAndSubRuler}" MinWidth="40" />
+                                <DataGridTextColumn Header="Nakshatra Name" IsReadOnly="True" Binding="{Binding Nakshatra}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.RowSpan="2" Margin="8,0,0,0">
+                            <StackPanel>
+                                <DataGrid Name="mahaDasas" Background="White" RowBackground="White" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"
+                                      Grid.Row="2" 
+                                      HorizontalAlignment="Stretch" FontSize="9"
+                                      AutoGenerateColumns="False" HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Dasa" IsReadOnly="True" Binding="{Binding DasaMark}" Width="*" />
+                                        <DataGridTextColumn Header="Start Date" IsReadOnly="True" Binding="{Binding Date}" Width="*" />
+                                        <DataGridTextColumn Header="Time" IsReadOnly="True" Binding="{Binding Time}" Width="*" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <StackPanel>
+                                <DataGrid Name="pratiDasas" Background="White" RowBackground="White" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden"
+                                      Grid.Row="2" Margin="0,8,0,0"
+                                      HorizontalAlignment="Stretch" FontSize="9"
+                                      AutoGenerateColumns="False" HeadersVisibility="Column">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Dasa" IsReadOnly="True" Binding="{Binding DasaMark}" Width="*" />
+                                        <DataGridTextColumn Header="Start Date" IsReadOnly="True" Binding="{Binding Date}" Width="*" />
+                                        <DataGridTextColumn Header="Time" IsReadOnly="True" Binding="{Binding Time}" Width="*" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </StackPanel>
+                        <views:AspectsPartial Grid.Column="1" Grid.Row="2" Margin="8,8,0,0" DataContext="{Binding BCAspects}" FontSize="6" Background="White" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                    </Grid>
+                    <TextBlock Name="placeholder" Grid.Column="1" Grid.RowSpan="2" Text="7astro" FontSize="7" FontFamily="Courier New" FontWeight="Bold" Margin="3,0,0,3">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90" />
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>

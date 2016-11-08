@@ -1,0 +1,661 @@
+﻿<Page x:Class="SevenAstro2.Views.EventView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      x:ClassModifier="internal"
+      xmlns:models="clr-namespace:SevenAstro2.Models"
+      xmlns:views="clr-namespace:SevenAstro2.Views"
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="7astro">
+
+    <Page.Resources>
+        <ResourceDictionary Source="../Assets/Styles/Colors.xaml" />
+    </Page.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Birth Chart</TextBlock>
+                        <Image Source="..\Assets\Images\birth-data.png" Width="22" Height="22" Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TabControl>
+                        <TabItem Header="Birth Chart">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <views:ChartPartial x:Name="PartialBC" ShowDegree="True" Chart="{Binding BC_D1}" />
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TabControl>
+                                        <TabItem Header="Navamsa">
+                                            <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D9}" Padding="3,0,0,0" />
+                                        </TabItem>
+                                        <TabItem Header="Bhava">
+                                            <views:ChartPartial ShowDegree="False" HideCenterChar="True" HideSigns="True" Chart="{Binding BCChalit}" Padding="3,0,0,0" />
+                                        </TabItem>
+                                    </TabControl>
+                                    <views:PlanetDataPartial Grid.Row="1" DataContext="{Binding BCPlanetDataList}" Padding="3,3,0,0" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <views:DasaPartial x:Name="PartialDasa" Dasa="{Binding Dasas, Mode=OneWay}" DasaDeep="{Binding DasaDeep, Mode=TwoWay}"  Padding="3,0,0,0" />
+                                    <Grid Grid.Row="1" Margin="3,3,0,0">
+                                        <TabControl>
+                                            <TabItem Header="Lots">
+                                                <views:LotsPartial DataContext="{Binding BCLotData}" />
+                                            </TabItem>
+                                            <TabItem Header="Aspects">
+                                                <views:AspectsPartial DataContext="{Binding BCAspects}" />
+                                            </TabItem>
+                                            <TabItem Header="PVB &amp; DVB">
+                                                <views:PanchaDwaadasaPartial DataContext="{Binding BCPanchaDwaadasa}" />
+                                            </TabItem>
+                                            <TabItem Header="Notes">
+                                                <Grid DataContext="{Binding BirthData}">
+                                                    <TextBox FlowDirection="RightToLeft" Text="{Binding Path=Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" />
+                                                </Grid>
+                                            </TabItem>
+                                        </TabControl>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals I">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D2.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D2}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D3.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D3}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D4.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D4}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D5.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D5}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D6.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D6}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D7.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D7}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals II">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D8.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D8}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D10.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D10}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D11.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D11}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D12.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D12}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D16.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D16}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D20.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D20}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals III">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D24.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D24}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D27.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D27}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D30.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D30}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D40.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D40}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D45.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D45}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=BC_D60.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding BC_D60}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Transit">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <views:TransitPartial DataContext="{Binding}" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Progress Chart</TextBlock>
+                        <Image Source="..\Assets\Images\progress-data.png" Width="22" Height="22" Margin="5,0,0,0" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding Age}" Width="40" Margin="3" />
+                        <Button Margin="3">
+                            Calculate
+                        </Button>
+                        <Button Margin="3,3,74,3" Command="{Binding UpdateAgeCommand}">
+                            Calculate For Current Year
+                        </Button>
+                        <TextBlock VerticalAlignment="Center" Margin="3">PC Start Time:</TextBlock>
+                        <TextBlock Text="{Binding PCStartTimeStr}" VerticalAlignment="Center" Margin="3" />
+                    </StackPanel>
+                    <TabControl Grid.Row="1" Margin="3">
+                        <TabItem Header="Progress Chart">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <views:ChartPartial ShowDegree="True" Chart="{Binding PC_D1}" />
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TabControl>
+                                        <TabItem Header="Navamsa">
+                                            <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D9}" Padding="3,0,0,0" />
+                                        </TabItem>
+                                        <TabItem Header="Bhava">
+                                            <views:ChartPartial ShowDegree="False" HideCenterChar="True" HideSigns="True" Chart="{Binding PCChalit}" Padding="3,0,0,0" />
+                                        </TabItem>
+                                    </TabControl>
+                                    <views:PlanetDataPartial Grid.Row="1" DataContext="{Binding PCPlanetDataList}" Padding="3,3,0,0" />
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <views:YearLordsPartial DataContext="{Binding YearLords}" Padding="3,0,0,0" />
+                                    <Grid Grid.Row="1" Margin="3,3,0,0">
+                                        <TabControl>
+                                            <TabItem Header="Lots">
+                                                <views:LotsPartial DataContext="{Binding PCLotData}" />
+                                            </TabItem>
+                                            <TabItem Header="Aspects">
+                                                <views:AspectsPartial DataContext="{Binding PCAspects}" />
+                                            </TabItem>
+                                            <TabItem Header="PVB &amp; DVB">
+                                                <views:PanchaDwaadasaPartial DataContext="{Binding PCPanchaDwaadasa}" />
+                                            </TabItem>
+                                            <TabItem Header="JD">
+                                                <views:JDPartial DataContext="{Binding}" />
+                                            </TabItem>
+                                        </TabControl>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals I">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D2.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D2}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D3.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D3}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D4.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D4}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D5.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D5}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D6.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D6}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D7.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D7}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals II">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D8.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D8}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D10.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D10}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D11.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D11}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D12.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D12}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D16.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D16}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D20.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D20}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Divisionals III">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D24.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D24}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="0" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D27.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D27}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D30.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D30}" Margin="0,0,10,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="1" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D40.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D40}" Margin="0,0,10,0" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D45.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D45}" Margin="0,0,0,10" Grid.Row="1" />
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.05*" MinHeight="24"></RowDefinition>
+                                        <RowDefinition Height="1*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,0,0,10" Text="{Binding Path=PC_D60.Name}" />
+                                    <views:ChartPartial ShowDegree="False" Chart="{Binding PC_D60}" Margin="0,0,0,0" Grid.Row="1" />
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Height="0" Name="spPopupContainer" Grid.Row="1">
+
+        </StackPanel>
+        <!--
+        -->
+    </Grid>
+</Page>

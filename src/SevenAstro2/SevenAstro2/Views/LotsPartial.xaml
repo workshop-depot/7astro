@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="SevenAstro2.Views.LotsPartial"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             x:ClassModifier="internal"
+             xmlns:local="clr-namespace:SevenAstro2"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <!--<local:GenderToStringConverter x:Key="gtosConverter" />-->
+        <!--<local:NodeTypeToStringConverter x:Key="nodtosConverter" />-->
+        <local:SignToStringConverter x:Key="stosConverter" />
+        <!--<local:PlanetToStringConverter x:Key="ptosConverter" />-->
+        <local:DegreeToStringConverter x:Key="dtosConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <DataGrid AlternationCount="2"
+                  Name="dgLotData" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding}" 
+                  AutoGenerateColumns="False" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="" IsReadOnly="True" Binding="{Binding SanskritName}" />
+                <DataGridTextColumn Header="" IsReadOnly="True" Binding="{Binding PersianName}" />
+                <DataGridTextColumn Header="Sign" IsReadOnly="True" Binding="{Binding Path=Sign, Converter={StaticResource stosConverter}}" />
+                <DataGridTextColumn Header="Degree" IsReadOnly="True" Binding="{Binding Degree, Converter={StaticResource dtosConverter}}" />
+                <DataGridTextColumn Header="Longitude" IsReadOnly="True" Binding="{Binding Longitude, Converter={StaticResource dtosConverter}}" />
+                <DataGridTextColumn Header="" IsReadOnly="True" Binding="{Binding LotIndicator}" Width="*" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Background="LightYellow" Text="{Binding Description}" TextWrapping="Wrap" Padding="5,5,5,5"
+                               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.CellStyle>
+                <Style>
+                    <Setter Property="DataGridCell.ToolTip">
+                        <Setter.Value>
+                            <StackPanel Background="AliceBlue">
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"></TextBlock>
+                            </StackPanel>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+    </Grid>
+</UserControl>
